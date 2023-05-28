@@ -37,7 +37,7 @@ return;
 if(res.proxy.host.includes(":")){
 res.proxy.port = res.proxy.host.substring(res.proxy.host.indexOf(":")+1, res.proxy.host.length);
 res.proxy.host2 = res.proxy.host.substring(0, res.proxy.host.indexOf(":"));
-}
+} else res.proxy.host2 = res.proxy.host;
 
 //Establish connection to client
 res.proxy.server = net.createConnection({host:res.proxy.host2, port:res.proxy.port});
@@ -55,7 +55,7 @@ res.write(data2);
 res.proxy.server.on('error', ()=>{});
 res.proxy.server.on('close', ()=>{res.end()});
 
-//Don't send the CONNECT request to the web server.
+//Don't send the CONNECT request to the http server.
 if(res.proxy.connected) return;
 }
 
